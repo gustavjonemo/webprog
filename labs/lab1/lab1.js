@@ -1,11 +1,11 @@
 'use strict';
 /**
  * Reflection question 1
+ * Because all objects that do not contain the evaluated property will return false
  */
 
 const imported = require("./inventory.js");
 console.log(imported.inventory['Sallad']);
-
 /*
 console.log('Object.keys():')
 let names = Object.keys(imported.inventory);
@@ -16,11 +16,27 @@ names
 
 /**
  * Reflection question 2
+ * forEach will only print enumareables while a loop can handle nonenumerables as well using 
+ * dedicated functions within the loop
  */
 
-console.log('\n--- Assignment 1 ---------------------------------------')
+console.log('\n--- Assignment 1 ---------------------------------------');
+console.log(Object.values(imported.inventory)[0]);
 
-// console.log(makeOptions(imported.inventory, 'foundation'));
+/*
+function makeOptions(inventory, type){
+    let vals = Object.values(inventory);
+    return vals.reduce((ingredients, newIngr) => {
+        if (newIngr[type]) {
+            ingredients + newIngr;
+        } else {
+            ingredients + "";
+        }
+    }, "");
+}
+
+console.log(makeOptions(imported.inventory, 'foundation'));
+*/
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 /*
