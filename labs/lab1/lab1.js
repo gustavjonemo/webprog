@@ -5,7 +5,7 @@
  */
 
 const imported = require("./inventory.js");
-console.log(imported.inventory['Sallad']);
+//console.log(imported.inventory['Sallad']);
 /*
 console.log('Object.keys():')
 let names = Object.keys(imported.inventory);
@@ -21,22 +21,27 @@ names
  */
 
 console.log('\n--- Assignment 1 ---------------------------------------');
-console.log(Object.values(imported.inventory)[0]);
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+  }
 
-/*
 function makeOptions(inventory, type){
-    let vals = Object.values(inventory);
-    return vals.reduce((ingredients, newIngr) => {
-        if (newIngr[type]) {
-            ingredients + newIngr;
+    let prprts = Object.values(inventory);
+    return prprts.reduce((ingredients, newIngr) => {
+        if (!!newIngr[type]) {
+            //console.log(getKeyByValue(inventory, newIngr));
+            //console.log(ingredients);
+            let name = getKeyByValue(inventory, newIngr)
+            return ingredients + '<option value="' + name + '"> ' + name + ', ' + newIngr['price'] + ' kr</option>\n'
         } else {
-            ingredients + "";
+            return ingredients;
         }
-    }, "");
+    }, '');
 }
 
 console.log(makeOptions(imported.inventory, 'foundation'));
-*/
+//makeOptions(imported.inventory, 'foundation');
+
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 /*
