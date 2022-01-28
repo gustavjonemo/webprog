@@ -63,7 +63,7 @@ class Salad {
 */
 
 class Salad {
-    //constructor(){};
+    constructor(){};
 
     add(name, properties){
         this[name] = properties;
@@ -89,7 +89,20 @@ myCaesarSalad.remove('Gurka');
 console.log(JSON.stringify(myCaesarSalad) + '\n');
 
 console.log('\n--- Assignment 3 ---------------------------------------')
-//console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
+
+Salad.prototype.getPrice = function getPrice(){
+    return Object.values(this).reduce((prev, curr) => {
+        return prev + curr['price'];
+    }, 0);
+}
+
+Salad.prototype.count = function count(type){
+    return Object.values(this).reduce((prev, curr) => {
+        return prev + curr['price'];
+    }, 0);
+}
+
+console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
 // En ceasarsallad kostar 45kr
 //console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
 // En ceasarsallad har 3 tillbehör
