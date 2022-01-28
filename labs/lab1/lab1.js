@@ -39,29 +39,7 @@ function makeOptions(inventory, type){
     }, '');
 }
 
-//console.log(makeOptions(imported.inventory, 'foundation'));
-
 console.log('\n--- Assignment 2 ---------------------------------------')
-/*
-class Salad {
-    ingredients;
-
-    constructor(){
-        this.ingredients = new Map();
-    };
-
-    add(name, properties){
-        this.ingredients.set(name, properties);
-        return this;
-    }; // return this object to make it chainable
-
-    remove(name){
-        this.ingredients.delete(name);
-        return this;
-    }; // return this object to make it chainable
-}
-*/
-
 class Salad {
     constructor(){};
 
@@ -111,9 +89,15 @@ console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
 console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
 // En ceasarsallad har 3 tillbehör
 
-// reflection question 3
+/* reflection question 3
+Classes are represented as functions, which in turn inherit the Object prototype. 
+myCeasarSallad is a prototype of Salad and thus typeOf myCeasarSallad === typeOf Salad.prototype.
+All functions have a default prototype.
+You get the next object in the prototype chain with .prototype. 
+*/
 
 /*
+console.log('----- Reflection question 3 -----\n')
 console.log('typeof Salad: ' + typeof Salad);
 console.log('typeof Salad.prototype: ' + typeof Salad.prototype);
 console.log('typeof Salad.prototype.prototype: ' + typeof Salad.prototype.prototype);
