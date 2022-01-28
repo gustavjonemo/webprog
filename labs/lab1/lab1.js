@@ -41,7 +41,6 @@ function makeOptions(inventory, type){
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
-    constructor(){};
 
     add(name, properties){
         this[name] = properties;
@@ -108,7 +107,30 @@ console.log('check 2: ' + (Object.prototype === Object.getPrototypeOf(Salad.prot
 */
 
 console.log('\n--- Assignment 4 ---------------------------------------')
-/*
+
+class GourmetSalad extends Salad {
+
+    add(name, properties, size){
+        let propertiesWithSize = Object.create(properties);
+        if(!size){
+            propertiesWithSize['size'] = 1;
+        } else if(!!this[name]){
+            propertiesWithSize['size'] = this[name]['size'] + size;
+        } else {
+            propertiesWithSize['size'] = size;
+        }
+        super.add(name, propertiesWithSize);
+        return this;
+    };
+
+    getPrice(){
+        return Object.values(this).reduce((totPrice, ingr) => {
+            return totPrice + (ingr['price'] * ingr['size']);
+        }, 0);
+    }
+    
+}
+
 let myGourmetSalad = new GourmetSalad()
 .add('Sallad', imported.inventory['Sallad'], 0.5)
 .add('Kycklingfilé', imported.inventory['Kycklingfilé'], 2)
@@ -119,7 +141,7 @@ let myGourmetSalad = new GourmetSalad()
 console.log('Min gourmetsallad med lite bacon kostar ' + myGourmetSalad.getPrice() + ' kr');
 myGourmetSalad.add('Bacon', imported.inventory['Bacon'], 1)
 console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
-*/
+
 
 console.log('\n--- Assignment 5 ---------------------------------------')
 //console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
