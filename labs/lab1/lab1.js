@@ -91,23 +91,28 @@ console.log(JSON.stringify(myCaesarSalad) + '\n');
 console.log('\n--- Assignment 3 ---------------------------------------')
 
 Salad.prototype.getPrice = function getPrice(){
-    return Object.values(this).reduce((prev, curr) => {
-        return prev + curr['price'];
+    return Object.values(this).reduce((totPrice, price) => {
+        return totPrice + price['price'];
     }, 0);
 }
 
 Salad.prototype.count = function count(type){
-    return Object.values(this).reduce((prev, curr) => {
-        return prev + curr['price'];
+    return Object.values(this).reduce((count, prop) => {
+        if(!!prop[type]){
+            return count + 1;
+        } else {
+            return count;
+        }
     }, 0);
 }
 
 console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
 // En ceasarsallad kostar 45kr
-//console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
+console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
 // En ceasarsallad har 3 tillbehör
 
 // reflection question 3
+
 /*
 console.log('typeof Salad: ' + typeof Salad);
 console.log('typeof Salad.prototype: ' + typeof Salad.prototype);
