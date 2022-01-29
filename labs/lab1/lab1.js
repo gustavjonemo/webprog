@@ -17,8 +17,7 @@ names
 
 /**
  * Reflection question 2
- * forEach will only print enumareables while a loop can handle nonenumerables as well using 
- * dedicated functions within the loop
+ * The loop will iterate over all properties including non-enumerable, hidden functions.
  */
 
 console.log('\n--- Assignment 1 ---------------------------------------');
@@ -26,7 +25,7 @@ console.log('\n--- Assignment 1 ---------------------------------------');
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
 }
-
+/*
 function makeOptions(inventory, type){
     let prprts = Object.values(inventory);
     return prprts.reduce((ingredients, newIngr) => {
@@ -38,17 +37,33 @@ function makeOptions(inventory, type){
         }
     }, '');
 }
+*/
+
+function makeOptions(inventory, type){
+    return Object.keys(inventory)
+    .filter(name => inventory[name][type])
+    .map(name => '<option value="' + name + '"> ' + name + ', ' + inventory[name]['price'] + ' kr</option>\n')
+    .reduce((acc, curr) => acc + curr);
+}
+
+console.log(makeOptions(imported.inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
+    static instanceCounter = 0;
+
+    constructor(){
+        this.ingredients = {};
+        this.uuid = 'salad_' + Salad.instanceCounter++;
+    }
 
     add(name, properties){
-        this[name] = properties;
+        this.ingredients[name] = properties;
         return this;
     };
 
     remove(name){
-        delete this[name];
+        delete this.ingredients[name];
         return this;
     };
 }
@@ -68,13 +83,13 @@ console.log(JSON.stringify(myCaesarSalad) + '\n');
 console.log('\n--- Assignment 3 ---------------------------------------')
 
 Salad.prototype.getPrice = function getPrice(){
-    return Object.values(this).reduce((totPrice, price) => {
+    return Object.values(this.ingredients).reduce((totPrice, price) => {
         return totPrice + price['price'];
     }, 0);
 }
 
 Salad.prototype.count = function count(type){
-    return Object.values(this).reduce((count, prop) => {
+    return Object.values(this.ingredients).reduce((count, prop) => {
         if(!!prop[type]){
             return count + 1;
         } else {
@@ -92,10 +107,10 @@ console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör
 Classes are represented as functions, which in turn inherit the Object prototype. 
 myCeasarSallad is a prototype of Salad and thus typeOf myCeasarSallad === typeOf Salad.prototype.
 All functions have a default prototype.
-You get the next object in the prototype chain with .prototype. 
+You get the next object in the prototype chain with the . operator 
 */
 
-/*
+
 console.log('----- Reflection question 3 -----\n')
 console.log('typeof Salad: ' + typeof Salad);
 console.log('typeof Salad.prototype: ' + typeof Salad.prototype);
@@ -104,18 +119,16 @@ console.log('typeof myCaesarSalad: ' + typeof myCaesarSalad);
 console.log('typeof myCaesarSalad.prototype: ' + typeof myCaesarSalad.prototype);
 console.log('check 1: ' + (Salad.prototype === Object.getPrototypeOf(myCaesarSalad)));
 console.log('check 2: ' + (Object.prototype === Object.getPrototypeOf(Salad.prototype)));
-*/
+
 
 console.log('\n--- Assignment 4 ---------------------------------------')
 
 class GourmetSalad extends Salad {
 
-    add(name, properties, size){
-        let propertiesWithSize = Object.create(properties);
-        if(!size){
-            propertiesWithSize['size'] = 1;
-        } else if(!!this[name]){
-            propertiesWithSize['size'] = this[name]['size'] + size;
+    add(name, properties, size = 1){
+        let propertiesWithSize = {...properties, size: 0}
+        if(!!this.ingredients[name]){
+            propertiesWithSize['size'] = this.ingredients[name]['size'] + size;
         } else {
             propertiesWithSize['size'] = size;
         }
@@ -124,7 +137,7 @@ class GourmetSalad extends Salad {
     };
 
     getPrice(){
-        return Object.values(this).reduce((totPrice, ingr) => {
+        return Object.values(this.ingredients).reduce((totPrice, ingr) => {
             return totPrice + (ingr['price'] * ingr['size']);
         }, 0);
     }
@@ -144,14 +157,18 @@ console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
 
 
 console.log('\n--- Assignment 5 ---------------------------------------')
-//console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
+
+console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
 
 /**
  * Reflection question 4
+ * The salad object
  */
 /**
  * Reflection question 5
+ * Yes, with defineProperties()
  */
 /**
  * Reflection question 6
+ * Yes, with the # symbol
  */
